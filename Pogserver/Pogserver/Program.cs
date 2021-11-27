@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Pogserver
 {
@@ -7,9 +6,11 @@ namespace Pogserver
     {
         static void Main(string[] args)
         {
+            Dictionary<string,IRequest> requests = new Dictionary<string,IRequest>();
+            requests.Add("/", new ContentRequest("index.html"));
+            requests.Add("/shutdown", new ContentRequest("shutdown.html"));
             var server = new Server();
-            Task something = server.StartServer("");
-            something.GetAwaiter().GetResult();
+            server.Run("Pages/", requests).GetAwaiter().GetResult();
         }
     }
 }

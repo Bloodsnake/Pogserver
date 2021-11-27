@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Pogserver.API;
 
 namespace Pogserver
 {
@@ -19,11 +19,12 @@ namespace Pogserver
             this.Listener = new HttpListener();
 
             this.Listener.Prefixes.Add(this.Url);
-            this.Listener.Start();
         }
 
-        public async Task StartServer(string pageFolder)
+        public async Task Run(string pageFolder, Dictionary<string,IRequest> requests)
         {
+            this.Listener.Start();
+            Console.WriteLine("Server running at: " + this.Url);
             this.IsRunning = true;
             while (this.IsRunning)
             {
@@ -32,21 +33,35 @@ namespace Pogserver
                 HttpListenerRequest req = ctx.Request;
                 HttpListenerResponse resp = ctx.Response;
 
-                if (req.HttpMethod == "GET" && req.Url.AbsolutePath == "/")
+                if (requests.ContainsKey(req.Url.AbsolutePath))
                 {
-                    byte[] data = Encoding.UTF8.GetBytes(String.Format(File.ReadAllText(pageFolder + "/index.html")));
-                    resp.ContentType = "text/html";
-                    resp.ContentEncoding = Encoding.UTF8;
-                    resp.ContentLength64 = data.LongLength;
+                    var request = requests[req.Url.AbsolutePath];
+                    if (request.Type == IRequest.RequestType.API)
+                    {
+                        var APIrequest = (APIRequest)request;
+                    }
+                    else if (request.Type == IRequest.RequestType.Page)
+                    {
+                        var pageRequst = (ContentRequest)request;
+                        var data = Encoding.UTF8.GetBytes(File.ReadAllText(pageFolder + pageRequst.ContentPath));
+                        resp.ContentType = "text/html";
+                        resp.ContentEncoding = Encoding.UTF8;
+                        resp.ContentLength64 = data.LongLength;
 
-                    await resp.OutputStream.WriteAsync(data, 0, data.Length);
-                    resp.Close();
-                }
-                else if (req.HttpMethod == "GET" && req.Url.AbsolutePath == "/shutdown")
-                {
-                    this.IsRunning = false;
+                        await resp.OutputStream.WriteAsync(data, 0, data.Length);
+                        resp.Close();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unknown request type");
+                    }
                 }
             }
+        }
+        public void Stop()
+        {
+            this.Listener.Stop();
+            this.IsRunning = false;
         }
     }
 }
