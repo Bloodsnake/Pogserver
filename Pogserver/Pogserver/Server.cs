@@ -28,22 +28,25 @@ namespace Pogserver
             this.IsRunning = true;
             while (this.IsRunning)
             {
-                HttpListenerContext ctx = await this.Listener.GetContextAsync();
+                var ctx = await this.Listener.GetContextAsync();
 
-                HttpListenerRequest req = ctx.Request;
-                HttpListenerResponse resp = ctx.Response;
-
+                var req = ctx.Request;
+                var resp = ctx.Response;
+                
                 if (requests.ContainsKey(req.Url.AbsolutePath))
                 {
                     var request = requests[req.Url.AbsolutePath];
                     if (request.Type == IRequest.RequestType.API)
                     {
                         var APIrequest = (APIRequest)request;
+                        Console.WriteLine("Not yet implemented request type");
                     }
                     else if (request.Type == IRequest.RequestType.Page)
                     {
                         var pageRequst = (ContentRequest)request;
+                        
                         var data = Encoding.UTF8.GetBytes(File.ReadAllText(pageFolder + pageRequst.ContentPath));
+                        
                         resp.ContentType = "text/html";
                         resp.ContentEncoding = Encoding.UTF8;
                         resp.ContentLength64 = data.LongLength;
