@@ -32,16 +32,19 @@ namespace Pogserver
 
                 var req = ctx.Request;
                 var resp = ctx.Response;
-                
+
                 if (requests.ContainsKey(req.Url.AbsolutePath))
                 {
                     var request = requests[req.Url.AbsolutePath];
                     if (request.Type == IRequest.RequestType.API)
                     {
-                        var APIrequest = (APIRequest)request;
-                        Console.WriteLine("Not yet implemented request type");
+                        var apiRequest = (APIRequest)request;
+                        var stream = req.InputStream;
+                        var sr = new StreamReader(stream).ReadToEnd();
+
+                        apiRequest.RequestObject.HandleRequest(sr);
                     }
-                    else if (request.Type == IRequest.RequestType.Page)
+                    else if (request.Type == IRequest.RequestType.Content)
                     {
                         var pageRequst = (ContentRequest)request;
                         
