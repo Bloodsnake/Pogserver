@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <p> Pew Pew</p>
+    <input type="text" name="token" id="tokenfield">
+    <button onclick="ButtonPress()"> Anfrage Verarbeiten</button>
+    <script>
+        function ButtonPress() {
+            let _data = {
+                Token: ""
+            }
+            _data.Token = document.getElementById("tokenfield").value;
+            fetch('http://localhost:8000/shutdown/request', {
+                method: "POST",
+                body: JSON.stringify(_data),
+            })
+        }
+    </script>
+</body>
+</html>

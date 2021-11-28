@@ -6,12 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <Content Include="HTMLData\*.*">
+	  <Content Include="Content\*.html*">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="HTMLData\shutdown.html" />
   </ItemGroup>
 </Project>
