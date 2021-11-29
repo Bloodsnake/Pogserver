@@ -8,5 +8,11 @@
             TestHeadline
         </h1>
         <p>Paragraph</p>
+        <button onclick="ButtonClick()"> Go to shutdown</button>
+        <script>
+            function ButtonClick() {
+                window.location.href = (window.location.origin + "/shutdown");
+            }
+        </script>
     </body>
 </html>

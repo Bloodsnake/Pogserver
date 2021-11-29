@@ -1,13 +1,15 @@
-﻿namespace Pogserver.API
+﻿using Pogserver.API.Payloads;
+
+namespace Pogserver.API
 {
     class APIRequest : IRequest
     {
-        public APIRequest(IAPIObject obj, IRequest.HTTPType type)
+        public APIRequest(IAPIRequestPayload obj)
         {
             this.Type = IRequest.RequestType.API;
             this.RequestObject = obj;
         }
         public IRequest.RequestType Type { get; set; }
-        public IAPIObject RequestObject { get; set; }
+        public IAPIRequestPayload RequestObject { get; set; }
     }
 }

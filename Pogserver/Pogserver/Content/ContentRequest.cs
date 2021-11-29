@@ -1,8 +1,8 @@
-﻿namespace Pogserver
+﻿namespace Pogserver.Content
 {
     class ContentRequest : IRequest
     {
-        public ContentRequest(string contentPath, IRequest.HTTPType type)
+        public ContentRequest(string contentPath)
         {
             this.ContentPath = contentPath;
             this.Type = IRequest.RequestType.Content;

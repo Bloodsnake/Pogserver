@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace Pogserver.API
+namespace Pogserver.API.Payloads
 {
-    interface IAPIObject
+    interface IAPIRequestPayload
     {
         public string Token { get; set; }
 
-        public void HandleRequest(string input);
+        public string HandleRequest(string input);
     }
-    class APIObjectBase : IAPIObject
+    class APIRequestPayloadBase : IAPIRequestPayload
     {
         public string Token { get; set; }
 
-        public virtual void HandleRequest(string input)
+        public virtual string HandleRequest(string input)
         {
             throw new RequestHandlerNotImplementedException();
         }

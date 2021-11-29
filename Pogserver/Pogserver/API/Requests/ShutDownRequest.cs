@@ -1,22 +1,27 @@
 ﻿using System;
+using Pogserver.API.Payloads;
 using System.Text.Json;
+using Pogserver.API.Responses;
 
 namespace Pogserver.API.Requests
 {
-    class ShutDownRequest : APIObjectBase
+    class ShutDownRequest : APIRequestPayloadBase
     {
-        public override void HandleRequest(string input)
+        public override string HandleRequest(string input)
         {
-            if (string.IsNullOrEmpty(input)) return;
+            var resp = new ShutDownResponse();
+            resp.RequestHandled = false; ;
+            if (string.IsNullOrEmpty(input)) return JsonSerializer.Serialize<ShutDownResponse>(resp);
             try
             {
                 var request = JsonSerializer.Deserialize<ShutDownRequest>(input);
-                Console.WriteLine(request.Token);
+                resp.RequestHandled = true;
             }
             catch
             {
                 Console.WriteLine("Could not parse: " + input);
             }
+            return JsonSerializer.Serialize<ShutDownResponse>(resp);
         }
     }
 }

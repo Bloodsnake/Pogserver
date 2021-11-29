@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Pogserver.API;
+using Pogserver.Content;
 
 namespace Pogserver
 {
@@ -21,7 +22,7 @@ namespace Pogserver
             this.Listener.Prefixes.Add(this.Url);
         }
 
-        public async Task Run(string pageFolder, Dictionary<string,IRequest> requests)
+        public async Task Run(string pageFolder, Dictionary<string, Dictionary<string, IRequest>> requests)
         {
             this.Listener.Start();
             Console.WriteLine("Server running at: " + this.Url);
@@ -33,34 +34,49 @@ namespace Pogserver
                 var req = ctx.Request;
                 var resp = ctx.Response;
 
-                if (requests.ContainsKey(req.Url.AbsolutePath))
+                //Check Method
+                if (!requests.ContainsKey(req.HttpMethod)) continue;
+                var typeRequests = requests[req.HttpMethod];
+
+                //Check Path
+                if (!typeRequests.ContainsKey(req.Url.AbsolutePath)) continue;
+                var request = typeRequests[req.Url.AbsolutePath];
+
+                //Check Request type
+                switch (request.Type)
                 {
-                    var request = requests[req.Url.AbsolutePath];
-                    if (request.Type == IRequest.RequestType.API)
-                    {
+                    case IRequest.RequestType.API:
                         var apiRequest = (APIRequest)request;
                         var stream = req.InputStream;
                         var sr = new StreamReader(stream).ReadToEnd();
 
-                        apiRequest.RequestObject.HandleRequest(sr);
-                    }
-                    else if (request.Type == IRequest.RequestType.Content)
-                    {
+                        var APIresp = apiRequest.RequestObject.HandleRequest(sr);
+                        var APIdata = Encoding.UTF8.GetBytes(APIresp);
+
+                        resp.ContentEncoding = Encoding.UTF8;
+                        resp.ContentLength64 = APIdata.LongLength;
+
+                        await resp.OutputStream.WriteAsync(APIdata, 0, APIdata.Length);
+                        resp.Close();
+
+                        break;
+
+                    case IRequest.RequestType.Content:
                         var pageRequst = (ContentRequest)request;
-                        
+
                         var data = Encoding.UTF8.GetBytes(File.ReadAllText(pageFolder + pageRequst.ContentPath));
-                        
+
                         resp.ContentType = "text/html";
                         resp.ContentEncoding = Encoding.UTF8;
                         resp.ContentLength64 = data.LongLength;
 
                         await resp.OutputStream.WriteAsync(data, 0, data.Length);
                         resp.Close();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Unknown request type");
-                    }
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid request type");
+                        break;
                 }
             }
         }
