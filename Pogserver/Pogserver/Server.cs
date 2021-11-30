@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Pogserver.API;
+using Pogserver.GivePLZ;
 using Pogserver.Content;
 
 namespace Pogserver
@@ -34,6 +34,9 @@ namespace Pogserver
                 var req = ctx.Request;
                 var resp = ctx.Response;
 
+                Console.WriteLine(req.HttpMethod);
+                Console.WriteLine(req.Url.AbsoluteUri);
+
                 //Check Method
                 if (!requests.ContainsKey(req.HttpMethod)) continue;
                 var typeRequests = requests[req.HttpMethod];
@@ -53,6 +56,7 @@ namespace Pogserver
                         var APIresp = apiRequest.RequestObject.HandleRequest(sr);
                         var APIdata = Encoding.UTF8.GetBytes(APIresp);
 
+                        resp.ContentType = "text/json";
                         resp.ContentEncoding = Encoding.UTF8;
                         resp.ContentLength64 = APIdata.LongLength;
 
@@ -66,7 +70,11 @@ namespace Pogserver
 
                         var data = Encoding.UTF8.GetBytes(File.ReadAllText(pageFolder + pageRequst.ContentPath));
 
-                        resp.ContentType = "text/html";
+                        if (pageRequst.ExtensionType == ContentRequest.ContentType.HTML) resp.ContentType = "text/html";
+                        else if (pageRequst.ExtensionType == ContentRequest.ContentType.CSS) resp.ContentType = "text/css";
+                        else if (pageRequst.ExtensionType == ContentRequest.ContentType.JS) resp.ContentType = "text/javascript";
+                        else Console.WriteLine("Invalid ContentType");
+
                         resp.ContentEncoding = Encoding.UTF8;
                         resp.ContentLength64 = data.LongLength;
 

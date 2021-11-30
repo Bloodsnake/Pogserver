@@ -1,6 +1,6 @@
-﻿using Pogserver.API.Payloads;
+﻿using Pogserver.GivePLZ.Payloads;
 
-namespace Pogserver.API
+namespace Pogserver.GivePLZ
 {
     class APIRequest : IRequest
     {

@@ -11,25 +11,21 @@ namespace Pogserver
             var requests = new Dictionary<string, Dictionary<string, IRequest>>();
 
             var gets = new Dictionary<string, IRequest>();
-            gets.Add("/", new ContentRequest("index.html"));
-            gets.Add("/shutdown", new ContentRequest("shutdown.html"));
+            gets.Add("/", new ContentRequest("Content/index.html", ContentRequest.ContentType.HTML));
+            gets.Add("/shutdown", new ContentRequest("Content/shutdown.html", ContentRequest.ContentType.HTML));
+
+            gets.Add("/PogStd/PogScript.js", new ContentRequest("Content/PogStd/PogScript.js", ContentRequest.ContentType.JS));
+            gets.Add("/PogStd/PogStyles.css", new ContentRequest("Content/PogStd/PogStyles.css", ContentRequest.ContentType.CSS));
 
             var posts = new Dictionary<string, IRequest>();
-            posts.Add("/shutdown", new API.APIRequest(new API.Requests.ShutDownRequest()));
+            posts.Add("/shutdown", new GivePLZ.APIRequest(new GivePLZ.Requests.ShutDownRequest()));
 
             requests.Add("GET", gets);
             requests.Add("POST", posts);
 
-            //Dictionary<string,IRequest> requests = new Dictionary<string,IRequest>();
-            //requests.Add("/", new ContentRequest("index.html");
-            //requests.Add("/shutdown", new ContentRequest("shutdown.html"));
-
-            //var apirequest = new API.APIRequest(new API.Requests.ShutDownRequest());
-
-            //requests.Add("/shutdown", apirequest);
             var server = new Server();
 
-            server.Run("Content/", requests).GetAwaiter().GetResult();
+            server.Run("", requests).GetAwaiter().GetResult();
         }
     }
 }

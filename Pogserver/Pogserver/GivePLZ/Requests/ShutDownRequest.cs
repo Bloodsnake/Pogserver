@@ -1,9 +1,9 @@
 ﻿using System;
-using Pogserver.API.Payloads;
+using Pogserver.GivePLZ.Payloads;
 using System.Text.Json;
-using Pogserver.API.Responses;
+using Pogserver.GivePLZ.Responses;
 
-namespace Pogserver.API.Requests
+namespace Pogserver.GivePLZ.Requests
 {
     class ShutDownRequest : APIRequestPayloadBase
     {
@@ -16,6 +16,7 @@ namespace Pogserver.API.Requests
             {
                 var request = JsonSerializer.Deserialize<ShutDownRequest>(input);
                 resp.RequestHandled = true;
+                Console.WriteLine(request.Token);
             }
             catch
             {

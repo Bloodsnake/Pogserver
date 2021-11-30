@@ -1,4 +1,4 @@
-﻿namespace Pogserver.API.Payloads
+﻿namespace Pogserver.GivePLZ.Payloads
 {
     interface IAPIResponsePayload
     {

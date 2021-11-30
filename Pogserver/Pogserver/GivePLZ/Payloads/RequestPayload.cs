@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pogserver.API.Payloads
+namespace Pogserver.GivePLZ.Payloads
 {
     interface IAPIRequestPayload
     {
