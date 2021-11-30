@@ -11,11 +11,8 @@ namespace Pogserver
             var requests = new Dictionary<string, Dictionary<string, IRequest>>();
 
             var gets = new Dictionary<string, IRequest>();
-            gets.Add("/", new ContentRequest("Content/index.html", ContentRequest.ContentType.HTML));
-            gets.Add("/shutdown", new ContentRequest("Content/shutdown.html", ContentRequest.ContentType.HTML));
-
-            gets.Add("/PogStd/PogScript.js", new ContentRequest("Content/PogStd/PogScript.js", ContentRequest.ContentType.JS));
-            gets.Add("/PogStd/PogStyles.css", new ContentRequest("Content/PogStd/PogStyles.css", ContentRequest.ContentType.CSS));
+            gets.Add("/", new ContentRequest("Content/index.html"));
+            gets.Add("/shutdown", new ContentRequest("Content/shutdown.html"));
 
             var posts = new Dictionary<string, IRequest>();
             posts.Add("/shutdown", new GivePLZ.APIRequest(new GivePLZ.Requests.ShutDownRequest()));
@@ -25,7 +22,10 @@ namespace Pogserver
 
             var server = new Server();
 
-            server.Run("", requests).GetAwaiter().GetResult();
+            server.AddContentLocation("Content/");
+            server.AddRequestLists(requests);
+
+            server.Run().GetAwaiter().GetResult();
         }
     }
 }
