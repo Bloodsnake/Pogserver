@@ -26,7 +26,8 @@ namespace Pogserver
             }
 
             var posts = new Dictionary<string, IRequest>();
-            posts.Add("/shutdown", new GivePLZ.APIRequest(new GivePLZ.Requests.ShutDownRequest()));
+            posts.Add("/GivePLZ/V1/shutdown", new GivePLZ.APIRequest(new GivePLZ.Requests.ShutDownRequest()));
+            posts.Add("/GivePLZ/V1/generateNewData", new GivePLZ.APIRequest(new GivePLZ.Requests.GenerateNewDataRequest()));
 
             requests.Add("GET", gets);
             requests.Add("POST", posts);
