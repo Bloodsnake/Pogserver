@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Pogserver.Content;
 using System;
+using System.IO;
+using System.Linq;
 
 namespace Pogserver
 {
@@ -11,8 +13,17 @@ namespace Pogserver
             var requests = new Dictionary<string, Dictionary<string, IRequest>>();
 
             var gets = new Dictionary<string, IRequest>();
-            gets.Add("/", new ContentRequest("Content/index.html"));
-            gets.Add("/shutdown", new ContentRequest("Content/shutdown.html"));
+            gets.Add("/", new ContentRequest("index.html"));
+            gets.Add("/shutdown", new ContentRequest("shutdown.html"));
+
+            Console.WriteLine("Loading common Files");
+
+            foreach (var file in Directory.GetFiles(Environment.CurrentDirectory + "/Content/Common"))
+            {
+                var c = @"\".ToCharArray()[0];
+                var path = file.Replace(Environment.CurrentDirectory + "/Content", "").Replace(c, '/');
+                gets.Add(path, new ContentRequest(path));
+            }
 
             var posts = new Dictionary<string, IRequest>();
             posts.Add("/shutdown", new GivePLZ.APIRequest(new GivePLZ.Requests.ShutDownRequest()));
@@ -24,6 +35,14 @@ namespace Pogserver
 
             server.AddContentLocation("Content/");
             server.AddRequestLists(requests);
+
+            foreach (var requestmethods in requests.Values.ToList())
+            {
+                foreach (var request in requestmethods.Keys.ToList())
+                {
+                    Console.WriteLine("Loaded: " + request);
+                }
+            }
 
             server.Run().GetAwaiter().GetResult();
         }

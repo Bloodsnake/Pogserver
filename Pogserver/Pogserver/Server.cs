@@ -67,26 +67,14 @@ namespace Pogserver
                 var req = ctx.Request;
                 var resp = ctx.Response;
 
-                Console.WriteLine(req.HttpMethod);
                 Console.WriteLine(req.Url.AbsoluteUri);
 
                 //Check Method
                 if (!this.RequestLibrary.ContainsKey(req.HttpMethod)) continue;
                 var typeLibrary = this.RequestLibrary[req.HttpMethod];
 
-                Console.WriteLine(req.HttpMethod);
-
                 //Check Path
-                if (!typeLibrary.ContainsKey(req.Url.AbsolutePath))
-                {
-                    if (req.Url.AbsolutePath.Contains(this.StandardLibraryPath))
-                    {
-                        var apiRequest = new ContentRequest(req.Url.AbsolutePath);
-                        this.HandleContentRequest(apiRequest, resp);
-                    }
-
-                    continue;
-                }
+                if (!typeLibrary.ContainsKey(req.Url.AbsolutePath)) continue;
                 var request = typeLibrary[req.Url.AbsolutePath];
 
                 Console.WriteLine(req.HttpMethod);
@@ -95,11 +83,11 @@ namespace Pogserver
                 switch (request.Type)
                 {
                     case IRequest.RequestType.API:
-                        this.HandleApiRequest((APIRequest)request, req, resp);
+                        HandleApiRequest((APIRequest)request, req, resp);
                         break;
 
                     case IRequest.RequestType.Content:
-                        this.HandleContentRequest((ContentRequest)request, resp);
+                        HandleContentRequest((ContentRequest)request, resp);
                         break;
                     default:
                         Console.WriteLine("Invalid request type");
@@ -111,7 +99,6 @@ namespace Pogserver
         {
             Console.WriteLine(this.ContentPath + request.ContentPath);
             var data = Encoding.UTF8.GetBytes(File.ReadAllText(this.ContentPath + request.ContentPath));
-            Console.WriteLine("askdfj");
             if (request.ContentPath.Contains(".html")) response.ContentType = "text/html";
             else if (request.ContentPath.Contains(".js")) response.ContentType = "text/javascript";
             else if (request.ContentPath.Contains(".css")) response.ContentType = "text/css";

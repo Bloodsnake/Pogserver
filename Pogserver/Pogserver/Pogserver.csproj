@@ -9,7 +9,7 @@
 	  <Content Include="Content\*.html*">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Content\Std\*.*">
+	  <Content Include="Content\Common\*.*">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
   </ItemGroup>

@@ -2,8 +2,8 @@
 <html lang="de">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="PogStd/PogStyles.css">
-    <script src="PogStd/PogScript.js"></script>
+    <link rel="stylesheet" href="Common/CommonStyles.css">
+    <script src="Common/CommonScript.js"></script>
 </head>
     <body>
         <h1>
@@ -12,6 +12,7 @@
         <p>Paragraph</p>
         <button onclick="ButtonClick()"> Go to shutdown</button>
         <script>
+            location.reload();
             function ButtonClick() {
                 window.location.href = (window.location.origin + "/shutdown");
             }
