@@ -3,6 +3,7 @@ using Pogserver.Content;
 using System;
 using System.IO;
 using System.Linq;
+using MySql.Data.MySqlClient;
 
 namespace Pogserver
 {
@@ -44,6 +45,9 @@ namespace Pogserver
                     Console.WriteLine("Loaded: " + request);
                 }
             }
+            Console.WriteLine("Configuring Database...");
+            Database.Configure();
+            Console.WriteLine("Database configured");
 
             server.Run().GetAwaiter().GetResult();
         }
