@@ -1,6 +1,6 @@
 ﻿using Pogserver.GivePLZ.Payloads;
 
-namespace Pogserver.GivePLZ.Responses
+namespace Pogserver.GivePLZ.Payloads.Responses
 {
     class ShutDownResponse : IAPIResponsePayload
     {

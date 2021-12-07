@@ -13,25 +13,8 @@ namespace Pogserver
         {
             var requests = new Dictionary<string, Dictionary<string, IRequest>>();
 
-            var gets = new Dictionary<string, IRequest>();
-            gets.Add("/", new ContentRequest("index.html"));
-            gets.Add("/shutdown", new ContentRequest("shutdown.html"));
-
-            Console.WriteLine("Loading common Files");
-
-            foreach (var file in Directory.GetFiles(Environment.CurrentDirectory + "/Content/Common"))
-            {
-                var c = @"\".ToCharArray()[0];
-                var path = file.Replace(Environment.CurrentDirectory + "/Content", "").Replace(c, '/');
-                gets.Add(path, new ContentRequest(path));
-            }
-
-            var posts = new Dictionary<string, IRequest>();
-            posts.Add("/GivePLZ/V1/shutdown", new GivePLZ.APIRequest(new GivePLZ.Requests.ShutDownRequest()));
-            posts.Add("/GivePLZ/V1/generateNewData", new GivePLZ.APIRequest(new GivePLZ.Requests.GenerateNewDataRequest()));
-
-            requests.Add("GET", gets);
-            requests.Add("POST", posts);
+            requests.Add("GET", ContentManager.GetAllContentRequests());
+            requests.Add("POST", GivePLZ.APIManager.GetAllAPIRequests());
 
             var server = new Server();
 

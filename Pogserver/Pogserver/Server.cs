@@ -98,9 +98,12 @@ namespace Pogserver
         private async Task HandleContentRequest(ContentRequest request, HttpListenerResponse response)
         {
             var data = Encoding.UTF8.GetBytes(File.ReadAllText(this.ContentPath + request.ContentPath));
+
             if (request.ContentPath.Contains(".html")) response.ContentType = "text/html";
             else if (request.ContentPath.Contains(".js")) response.ContentType = "text/javascript";
             else if (request.ContentPath.Contains(".css")) response.ContentType = "text/css";
+
+            Console.WriteLine(response.ContentType);
 
             response.ContentEncoding = Encoding.UTF8;
             response.ContentLength64 = data.LongLength;
@@ -111,9 +114,13 @@ namespace Pogserver
         private async Task HandleApiRequest(APIRequest request, HttpListenerRequest HTTPrequest, HttpListenerResponse response)
         {
             var stream = HTTPrequest.InputStream;
-            var sr = new StreamReader(stream).ReadToEnd();
+            var reader = new StreamReader(stream).ReadToEnd();
 
-            var APIresp = request.RequestObject.HandleRequest(sr);
+            var context = new APIManager.APIContext();
+            context.input = reader;
+            context.sender = this;
+
+            var APIresp = request.RequestObject.HandleRequest(context);
             var APIdata = Encoding.UTF8.GetBytes(APIresp);
 
             response.ContentType = "text/json";

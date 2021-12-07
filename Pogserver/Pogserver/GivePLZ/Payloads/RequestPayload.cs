@@ -6,13 +6,13 @@ namespace Pogserver.GivePLZ.Payloads
     {
         public string Token { get; set; }
 
-        public string HandleRequest(string input);
+        public string HandleRequest(APIManager.APIContext ctx);
     }
     class APIRequestPayloadBase : IAPIRequestPayload
     {
         public string Token { get; set; }
 
-        public virtual string HandleRequest(string input)
+        public virtual string HandleRequest(APIManager.APIContext ctx)
         {
             throw new RequestHandlerNotImplementedException();
         }

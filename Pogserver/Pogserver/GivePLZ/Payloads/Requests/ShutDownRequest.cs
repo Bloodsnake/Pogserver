@@ -1,26 +1,25 @@
-﻿using System;
-using Pogserver.GivePLZ.Payloads;
+﻿using Pogserver.GivePLZ.Payloads.Responses;
+using System;
 using System.Text.Json;
-using Pogserver.GivePLZ.Responses;
 
-namespace Pogserver.GivePLZ.Requests
+namespace Pogserver.GivePLZ.Payloads.Requests
 {
     class ShutDownRequest : APIRequestPayloadBase
     {
-        public override string HandleRequest(string input)
+        public override string HandleRequest(APIManager.APIContext ctx)
         {
             var resp = new ShutDownResponse();
             resp.RequestHandled = false; ;
-            if (string.IsNullOrEmpty(input)) return JsonSerializer.Serialize<ShutDownResponse>(resp);
+            if (string.IsNullOrEmpty(ctx.input)) return JsonSerializer.Serialize<ShutDownResponse>(resp);
             try
             {
-                var request = JsonSerializer.Deserialize<ShutDownRequest>(input);
+                var request = JsonSerializer.Deserialize<ShutDownRequest>(ctx.input);
                 resp.RequestHandled = true;
                 Console.WriteLine(request.Token);
             }
             catch
             {
-                Console.WriteLine("Could not parse: " + input);
+                Console.WriteLine("Could not parse: " + ctx.input);
             }
             return JsonSerializer.Serialize<ShutDownResponse>(resp);
         }
