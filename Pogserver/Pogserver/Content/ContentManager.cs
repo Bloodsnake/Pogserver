@@ -14,6 +14,7 @@ namespace Pogserver.Content
 
             requests.Add("/", new ContentRequest("index.html"));
             requests.Add("/shutdown", new ContentRequest("shutdown.html"));
+            requests.Add("/newdata", new ContentRequest("newdata.html"));
 
             var common = GetAllCommonFiles();
             common.ToList().ForEach(x => requests.Add(x.Key, x.Value));

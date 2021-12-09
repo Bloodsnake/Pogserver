@@ -13,6 +13,7 @@ namespace Pogserver.GivePLZ.Payloads.Requests
             if (string.IsNullOrEmpty(ctx.input)) return JsonSerializer.Serialize<ShutDownResponse>(resp);
             try
             {
+                Console.WriteLine(ctx.input);
                 var request = JsonSerializer.Deserialize<ShutDownRequest>(ctx.input);
                 resp.RequestHandled = true;
                 Console.WriteLine(request.Token);

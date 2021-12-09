@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="Common/CommonStyles.css">
+</head>
+<body>
+    <button onclick="ButtonClick()"> Send Data</button>
+    <script>
+        function ButtonClick() {
+            let _data = {
+                Token: "1237",
+                TypeName: "Measurement",
+                Data: {
+                    SomeString: "test",
+                }
+            };
+            fetch('http://localhost:8000/GivePLZ/V1/sendnewdata', {
+                method: "POST",
+                body: JSON.stringify(_data)
+            });
+            }
+    </script>
+</body>
+</html>

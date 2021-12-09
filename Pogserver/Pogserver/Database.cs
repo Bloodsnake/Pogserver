@@ -30,5 +30,21 @@ namespace Pogserver
             cmd.CommandText = command;
             cmd.ExecuteNonQuery();
         }
+        public class Measurement
+        {
+            public string SomeString;
+        }
+        public class Sensor
+        {
+
+        }
+        public class Unit
+        {
+
+        }
+        public class Location
+        {
+
+        }
     }
 }

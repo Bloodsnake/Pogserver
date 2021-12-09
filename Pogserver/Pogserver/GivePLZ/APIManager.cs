@@ -11,6 +11,7 @@ namespace Pogserver.GivePLZ
             var requests = new Dictionary<string, IRequest>();
             requests.Add(Path + "shutdown", new APIRequest(new ShutDownRequest()));
             requests.Add(Path + "generateNewData", new APIRequest(new GenerateNewDataRequest()));
+            requests.Add(Path + "sendnewdata", new APIRequest(new GenerateNewDataRequest()));
             return requests;
         }
         public class APIContext
