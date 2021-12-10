@@ -9,7 +9,7 @@ namespace Pogserver.GivePLZ.Payloads.Requests
         public override string HandleRequest(APIManager.APIContext ctx)
         {
             var resp = new ShutDownResponse();
-            resp.RequestHandled = false; ;
+            resp.RequestHandled = false;
             if (string.IsNullOrEmpty(ctx.input)) return JsonSerializer.Serialize<ShutDownResponse>(resp);
             try
             {

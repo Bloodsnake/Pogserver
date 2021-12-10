@@ -9,18 +9,24 @@ namespace Pogserver.GivePLZ.Payloads.Requests
         public string Data { get; set; }
         public override string HandleRequest(APIManager.APIContext ctx)
         {
-            var request = JsonSerializer.Deserialize<GenerateNewDataRequest>(ctx.input);
-            Console.WriteLine(request.Token);
-            Console.WriteLine(request.TypeName);
-            Console.WriteLine(request.Data);
-            var uff = new GenerateNewDataRequest();
-            var t = Type.GetType("Database." + request.TypeName);
-            var data = JsonSerializer.Deserialize(request.Data, t);
-
             try
             {
-
+                var request = JsonSerializer.Deserialize<GenerateNewDataRequest>(ctx.input);
+                var t = Type.GetType("Pogserver.Database+" + request.TypeName);
+                var data = JsonSerializer.Deserialize(request.Data, t);
+                foreach (var d in data.GetType().GetProperties()) Console.WriteLine(d.GetValue(data));
                 //Database.ExecuteCommand("");
+                /*
+                //---Second Method---//
+                switch (request.TypeName)
+                {
+                    case "Measurement":
+                        Console.WriteLine(request.Data);
+                        var data = JsonSerializer.Deserialize<Database.Measurement>(request.Data);
+                        Console.WriteLine(data.SomeString);
+                        break;
+                }
+                */
             }
             catch
             {

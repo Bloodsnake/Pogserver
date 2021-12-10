@@ -111,9 +111,9 @@ namespace Pogserver
             await response.OutputStream.WriteAsync(data, 0, data.Length);
             response.Close();
         }
-        private async Task HandleApiRequest(APIRequest request, HttpListenerRequest HTTPrequest, HttpListenerResponse response)
+        private async Task HandleApiRequest(APIRequest request, HttpListenerRequest HTTPRequest, HttpListenerResponse response)
         {
-            var stream = HTTPrequest.InputStream;
+            var stream = HTTPRequest.InputStream;
             var reader = new StreamReader(stream).ReadToEnd();
 
             var context = new APIManager.APIContext();
