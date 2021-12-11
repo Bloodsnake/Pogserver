@@ -15,11 +15,14 @@ namespace Pogserver.Content
             requests.Add("/", new ContentRequest("index.html"));
             requests.Add("/shutdown", new ContentRequest("shutdown.html"));
             requests.Add("/newdata", new ContentRequest("newdata.html"));
-            requests.Add("/DB/instruments", new ContentRequest("DB/instruments.html"));
+            requests.Add("/DB/units", new ContentRequest("DB/units.html"));
             requests.Add("/DB/locations", new ContentRequest("DB/locations.html"));
             requests.Add("/DB/measurements", new ContentRequest("DB/measurements.html"));
             requests.Add("/DB/sensors", new ContentRequest("DB/sensors.html"));
             requests.Add("/favicon.png", new ContentRequest("favicon.png"));
+            requests.Add("/navigation", new ContentRequest("navigation.html"));
+            requests.Add("/pepohappy.png", new ContentRequest("pepohappy.png"));
+            requests.Add("/peposad.gif", new ContentRequest("peposad.gif"));
 
             var common = GetAllCommonFiles();
             common.ToList().ForEach(x => requests.Add(x.Key, x.Value));
