@@ -32,19 +32,32 @@ namespace Pogserver
         }
         public class Measurement
         {
-            public string SomeString;
+            public string PhysID { get; set; }
+            public string SensorID { get; set; }
+            public string Value { get; set; }
+            public string Time { get; set; }
         }
         public class Sensor
         {
-
+            public string Bezeichnung { get; set; }
+            public string Hersteller { get; set; }
+            public string Herstellernummer { get; set; }
+            public string SensorID { get; set; }
+            public string PhysID { get; set; }
+            public string Seriennummer { get; set; }
+            public string StandortID { get; set; }
         }
         public class Unit
         {
-
+            public string Einheit { get; set; }
+            public string Character { get; set; }
+            public string Name { get; set; }
         }
         public class Location
         {
-
+            public string Bezeichnung { get; set; }
+            public string Standort { get; set; }
+            public string StandortID { get; set; }
         }
     }
 }
