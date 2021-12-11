@@ -1,3 +1,46 @@
-﻿h1 {
-    text-align: center;
+﻿body {
+	margin: 0;
+}
+.header {
+	padding: 10px;
+  	background: #1abc9c;
+	color: wheat;
+  	font-size: 30px;
+}
+.flexbox {
+	display: flex;
+}
+#PoweredByInfo {
+	font-size: 19px;
+	font-family: "Brush Script MT";
+}
+#name {
+	font-size: 40px;
+}
+.navigation {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.navigationEntry {
+	padding: 2vh;
+	font-weight: bold;
+	font: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+	border: 1px solid #52E4C7;
+	cursor: pointer;
+}
+.navigationContainer {
+	background: content-box;
+	background: #178a73;
+	width: 10vw;
+	height: 100vh;
+}
+.indexContainer {
+	width: 100vw;
+	height: 100vh;
+}
+.indexEntry {
+	text-align: center;
+	padding: 7vh;
+	font-size: 30px
 }

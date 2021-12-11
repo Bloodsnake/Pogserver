@@ -67,7 +67,7 @@ namespace Pogserver
                 var req = ctx.Request;
                 var resp = ctx.Response;
 
-                Console.WriteLine(req.Url.AbsoluteUri);
+                Console.WriteLine("Requesting:" + req.Url.AbsoluteUri);
 
                 //Check Method
                 if (!this.RequestLibrary.ContainsKey(req.HttpMethod)) continue;
@@ -76,8 +76,6 @@ namespace Pogserver
                 //Check Path
                 if (!typeLibrary.ContainsKey(req.Url.AbsolutePath)) continue;
                 var request = typeLibrary[req.Url.AbsolutePath];
-
-                Console.WriteLine(req.HttpMethod);
 
                 //Check Request type
                 switch (request.Type)
@@ -103,13 +101,15 @@ namespace Pogserver
             else if (request.ContentPath.Contains(".js")) response.ContentType = "text/javascript";
             else if (request.ContentPath.Contains(".css")) response.ContentType = "text/css";
 
-            Console.WriteLine(response.ContentType);
-
             response.ContentEncoding = Encoding.UTF8;
             response.ContentLength64 = data.LongLength;
 
             await response.OutputStream.WriteAsync(data, 0, data.Length);
             response.Close();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Successful handled: " + request.ContentPath);
+            Console.ForegroundColor = ConsoleColor.White;
         }
         private async Task HandleApiRequest(APIRequest request, HttpListenerRequest HTTPrequest, HttpListenerResponse response)
         {

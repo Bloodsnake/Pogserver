@@ -11,7 +11,7 @@ namespace Pogserver
         {
             var requests = new Dictionary<string, Dictionary<string, IRequest>>();
 
-            requests.Add("GET", ContentManager.GetAllContentRequests());
+            requests.Add("GET", ContentManager.Verify(ContentManager.GetAllContentRequests(), "Content/"));
             requests.Add("POST", GivePLZ.APIManager.GetAllAPIRequests());
 
             var server = new Server();

@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8" name='viewport' content='width=device-width, initial-scale=1'>
+	<title>Measurement Alteration Tool</title>
     <link rel="stylesheet" href="Common/CommonStyles.css">
-    <script src="Common/CommonScript.js"></script>
+    <script type="text/javascript" src="Common/CommonScript.js"></script>
 </head>
     <body>
-        <h1>
-            TestHeadline
-        </h1>
-        <p>Paragraph</p>
-        <button onclick="ButtonClick()"> Go to shutdown</button>
-        <script>
-            function ButtonClick() {
-                window.location.href = (window.location.origin + "/shutdown");
-            }
-        </script>
+		<div class="header">
+			<div id="name">
+				Measurement Alteration Tool
+			</div>
+			<div id="PoweredByInfo">
+				Powered by Pogserver
+			</div>
+		</div>
+		<div class="indexContainer navigationContainer">
+			<ul class="navigation">
+				<li class="navigationEntry indexEntry" onClick="NavigateTo('/')"> Go To Main Page</li>
+				<li class="navigationEntry indexEntry" onClick="NavigateTo('/DB/sensors')"> Go To Sensors</li>
+				<li class="navigationEntry indexEntry" onClick="NavigateTo('/DB/measurements')"> Go To Measurements</li>
+				<li class="navigationEntry indexEntry" onClick="NavigateTo('/DB/locations')"> Go To Locations</li>
+				<li class="navigationEntry indexEntry" onClick="NavigateTo('/DB/instruments')"> Go To Instruments</li>
+			</ul>
+		</div>
+		<div>
+		</div>
     </body>
 </html>

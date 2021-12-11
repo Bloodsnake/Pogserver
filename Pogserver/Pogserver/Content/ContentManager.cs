@@ -15,11 +15,31 @@ namespace Pogserver.Content
             requests.Add("/", new ContentRequest("index.html"));
             requests.Add("/shutdown", new ContentRequest("shutdown.html"));
             requests.Add("/newdata", new ContentRequest("newdata.html"));
+            requests.Add("/DB/instruments", new ContentRequest("DB/instruments.html"));
+            requests.Add("/DB/locations", new ContentRequest("DB/locations.html"));
+            requests.Add("/DB/measurements", new ContentRequest("DB/measurements.html"));
+            requests.Add("/DB/sensors", new ContentRequest("DB/sensors.html"));
+            requests.Add("/favicon.png", new ContentRequest("favicon.png"));
 
             var common = GetAllCommonFiles();
             common.ToList().ForEach(x => requests.Add(x.Key, x.Value));
 
             return requests;
+        }
+        public static Dictionary<string, IRequest> Verify(Dictionary<string, IRequest> input, string contentPath)
+        {
+            foreach (var req in input)
+            {
+                var request = (ContentRequest)req.Value;
+                if (!File.Exists("Content/" + request.ContentPath))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Couldn't load: " + request.ContentPath);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    input.Remove(req.Key);
+                }
+            }
+            return input;
         }
         public static Dictionary<string, IRequest> GetAllCommonFiles()
         {

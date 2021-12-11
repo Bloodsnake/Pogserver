@@ -1,14 +1,11 @@
 ﻿//DataTypes for Requests
-
-//Shutdown
-let _ShutdownRequestData {
+var _ShutdownRequestData = {
     Token: ""
 }
-let _ShutdownRequestResponse {
+var _ShutdownRequestResponse = {
     RequestHandled: 0
 }
-
-function Test() {
-    var test = "cool";
-    console.log(test);
+//Functions
+function NavigateTo(location) {
+	window.location.href = (window.location.origin + location);
 }
