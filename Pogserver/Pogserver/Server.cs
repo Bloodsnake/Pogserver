@@ -19,7 +19,7 @@ namespace Pogserver
         public Dictionary<string, Dictionary<string, IRequest>> RequestLibrary { get; set; }
         public string ContentPath { get; private set; }
         public bool PermitAllContentRequests { get; private set; }
-        public string StandardLibraryPath { get; private set; }
+        public string ErrorPath { get; set; }
         #endregion
         #region Config
         public Server(string url = "http://localhost", uint port = 8000)
@@ -29,6 +29,10 @@ namespace Pogserver
 
             this.Listener.Prefixes.Add(this.Url);
         }
+        public void AddErrorPath(string path)
+        {
+            this.ErrorPath = path;
+        }
         public void AddRequestLists(Dictionary<string, Dictionary<string, IRequest>> requests)
         {
             this.RequestLibrary = requests;
@@ -36,13 +40,12 @@ namespace Pogserver
         public void AddContentLocation(string path)
         {
             this.ContentPath = path;
-            this.StandardLibraryPath = path + "Std/";
         }
         private bool ConfigIsValid()
         {
             if (string.IsNullOrEmpty(this.ContentPath)
-                || string.IsNullOrEmpty(this.StandardLibraryPath)
-                || this.RequestLibrary.Count() < 1)
+                || this.RequestLibrary.Count() < 1
+                || string.IsNullOrEmpty(this.ErrorPath))
             {
                 return false;
             }
@@ -74,7 +77,11 @@ namespace Pogserver
                 var typeLibrary = this.RequestLibrary[req.HttpMethod];
 
                 //Check Path
-                if (!typeLibrary.ContainsKey(req.Url.AbsolutePath)) continue;
+                if (!typeLibrary.ContainsKey(req.Url.AbsolutePath))
+                {
+                    HandleContentRequest(new ContentRequest("404.html"), resp);
+                    continue;
+                }
                 var request = typeLibrary[req.Url.AbsolutePath];
 
                 //Check Request type
@@ -95,11 +102,13 @@ namespace Pogserver
         }
         private async Task HandleContentRequest(ContentRequest request, HttpListenerResponse response)
         {
-            var data = Encoding.UTF8.GetBytes(File.ReadAllText(this.ContentPath + request.ContentPath));
+            var data = File.ReadAllBytes(this.ContentPath + request.ContentPath);
 
             if (request.ContentPath.Contains(".html")) response.ContentType = "text/html";
             else if (request.ContentPath.Contains(".js")) response.ContentType = "text/javascript";
             else if (request.ContentPath.Contains(".css")) response.ContentType = "text/css";
+            else if (request.ContentPath.Contains(".png")) response.ContentType = "image/png";
+            else if (request.ContentPath.Contains(".gif")) response.ContentType = "image/gif";
 
             response.ContentEncoding = Encoding.UTF8;
             response.ContentLength64 = data.LongLength;

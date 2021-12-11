@@ -18,6 +18,7 @@ namespace Pogserver
 
             server.AddContentLocation("Content/");
             server.AddRequestLists(requests);
+            server.AddErrorPath("Content/404.html");
 
             foreach (var requestmethods in requests.Values.ToList())
             {
