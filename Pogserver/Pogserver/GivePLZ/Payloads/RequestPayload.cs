@@ -4,14 +4,10 @@ namespace Pogserver.GivePLZ.Payloads
 {
     interface IAPIRequestPayload
     {
-        public string Token { get; set; }
-
         public string HandleRequest(APIManager.APIContext ctx);
     }
     class APIRequestPayloadBase : IAPIRequestPayload
     {
-        public string Token { get; set; }
-
         public virtual string HandleRequest(APIManager.APIContext ctx)
         {
             throw new RequestHandlerNotImplementedException();

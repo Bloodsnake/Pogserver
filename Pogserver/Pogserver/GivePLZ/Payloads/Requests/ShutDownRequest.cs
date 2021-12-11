@@ -16,7 +16,6 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 Console.WriteLine(ctx.input);
                 var request = JsonSerializer.Deserialize<ShutDownRequest>(ctx.input);
                 resp.RequestHandled = true;
-                Console.WriteLine(request.Token);
             }
             catch
             {

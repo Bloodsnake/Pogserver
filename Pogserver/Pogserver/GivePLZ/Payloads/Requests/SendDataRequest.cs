@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace Pogserver.GivePLZ.Payloads.Requests
@@ -8,12 +9,12 @@ namespace Pogserver.GivePLZ.Payloads.Requests
         public string TypeName { get; set; }
         public override string HandleRequest(APIManager.APIContext ctx)
         {
-            string resp = "";
+            List<string> response = new List<string>();
             
             var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
             var type = Type.GetType("Pogserver.Database+" + request.TypeName);
 
-            var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`");
+            var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
 
             while (reader.Read())
             {
@@ -28,11 +29,9 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                         }
                     }
                 }
-                var s = JsonSerializer.Serialize(instance, type);
-                resp += s;
+                response.Add(JsonSerializer.Serialize(instance, type));
             }
-            Console.WriteLine(resp);
-            return resp;
+            return JsonSerializer.Serialize(response);
         }
     }
 }

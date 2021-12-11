@@ -6,46 +6,50 @@
 	<link rel="stylesheet" href="/Common/CommonStyles.css">
     <script type="text/javascript" src="/Common/CommonScript.js"></script>
 </head>
-<body>
-	<body>
-		<div class="header">
-			<div>
-				Measurement Alteration Tool
-			</div>
-			<div id="PoweredByInfo">
-				Powered by Pogserver
-			</div>
-		</div>
-		<div class="flexbox">
-			<div class="navigationContainer">
-				<ul class="navigation">
-					<li class="navigationEntry" onClick="NavigateTo('/')"> Go To Main Page</li>
-					<li class="navigationEntry" onClick="NavigateTo('/DB/sensors')"> Go To Sensors</li>
-					<li class="navigationEntry" onClick="NavigateTo('/DB/measurements')"> Go To Measurements</li>
-					<li class="navigationEntry" onClick="NavigateTo('/DB/locations')"> Go To Locations</li>
-					<li class="navigationEntry" onClick="NavigateTo('/DB/units')"> Go To Units</li>
-				</ul>
-			</div>
-			<div class="content">
-				<table>
-					<caption>Data from units:</caption>
-					<tr id="dataHead">
-						<th>Name</th>
-						<th>Einheit</th>
-						<th>Character</th>
-						<th>PhysID</th>
-					</tr>
-					<tr class="dataBody">
-						<td>asdf</td>
-						<td>asdf</td>
-						<td>asdfasdf</td>
-						<td>asdfasdfasdf</td>
-					</tr>
-			</table>
-			</div>
-		</div>
+<body onload="GetUnitData()">
+	<div class="header">
 		<div>
+			Measurement Alteration Tool
 		</div>
-    </body>
+		<div id="PoweredByInfo">
+			Powered by Pogserver
+		</div>
+	</div>
+	<div class="flexbox">
+		<div class="navigationContainer">
+			<ul class="navigation">
+				<li class="navigationEntry" onClick="NavigateTo('/')"> Go To Main Page</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/sensors')"> Go To Sensors</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/measurements')"> Go To Measurements</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/locations')"> Go To Locations</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/units')"> Go To Units</li>
+			</ul>
+		</div>
+		<div class="content">
+			<table>
+				<caption>Data from units:</caption>
+				<tr id="dataHead">
+					<th>Name</th>
+					<th>Einheit</th>
+					<th>Character</th>
+					<th>PhysID</th>
+				</tr>
+				<tr class="dataBody" id="0">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr class="dataBody" id="1">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+		</table>
+		</div>
+	</div>
+	<div>
+	</div>
 </body>
 </html>
