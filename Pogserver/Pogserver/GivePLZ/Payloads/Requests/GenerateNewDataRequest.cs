@@ -14,7 +14,10 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 var request = JsonSerializer.Deserialize<GenerateNewDataRequest>(ctx.input);
                 var t = Type.GetType("Pogserver.Database+" + request.TypeName);
                 var data = JsonSerializer.Deserialize(request.Data, t);
-                foreach (var d in data.GetType().GetProperties()) Console.WriteLine(d.GetValue(data));
+                foreach (var d in data.GetType().GetProperties())
+                {
+                    //Database.ExecuteCommand();
+                }
                 //Database.ExecuteCommand("");
                 /*
                 //---Second Method---//

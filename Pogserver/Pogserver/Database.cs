@@ -11,6 +11,7 @@ namespace Pogserver
             if (IsConfigured) return;
 
             Connection = new MySqlConnection(parameters);
+            Connection.Open();
             IsConfigured = true;
         }
         public static MySqlDataReader Read(string command)
@@ -19,7 +20,6 @@ namespace Pogserver
             var cmd = Connection.CreateCommand();
 
             cmd.CommandText = command;
-            cmd.ExecuteNonQuery();
 
             return cmd.ExecuteReader();
         }
@@ -52,6 +52,7 @@ namespace Pogserver
             public string Einheit { get; set; }
             public string Character { get; set; }
             public string Name { get; set; }
+            public string PhysID { get; set; }
         }
         public class Location
         {
