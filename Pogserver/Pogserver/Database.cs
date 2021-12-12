@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 
 namespace Pogserver
 {
@@ -11,8 +12,17 @@ namespace Pogserver
             if (IsConfigured) return;
 
             Connection = new MySqlConnection(parameters);
-            Connection.Open();
-            IsConfigured = true;
+            try
+            {
+                Connection.Open();
+                IsConfigured = true;
+            }
+            catch
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Connot connect to Database");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
         }
         public static MySqlDataReader Read(string command)
         {
@@ -32,6 +42,7 @@ namespace Pogserver
         }
         public class Measurement
         {
+            public string MessungsID { get; set; }
             public string PhysID { get; set; }
             public string SensorID { get; set; }
             public string Value { get; set; }
@@ -47,7 +58,7 @@ namespace Pogserver
             public string Seriennummer { get; set; }
             public string StandortID { get; set; }
         }
-        public class Unit
+        public class Units
         {
             public string Einheit { get; set; }
             public string Character { get; set; }

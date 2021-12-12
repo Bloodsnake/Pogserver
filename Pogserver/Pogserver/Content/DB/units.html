@@ -7,12 +7,14 @@
     <script type="text/javascript" src="/Common/CommonScript.js"></script>
 </head>
 <body onload="GetUnitData()">
-	<div class="header">
+	<div class="header flexbox">
 		<div>
-			Measurement Alteration Tool
-		</div>
-		<div id="PoweredByInfo">
-			Powered by Pogserver
+			<div>
+				Measurement Alteration Tool
+			</div>
+			<div id="PoweredByInfo" onclick="NavigateToExtern('github.com/Bloodsnake/Pogserver')">
+				Powered by Pogserver
+			</div>
 		</div>
 	</div>
 	<div class="flexbox">
@@ -25,28 +27,20 @@
 				<li class="navigationEntry" onClick="NavigateTo('/DB/units')"> Go To Units</li>
 			</ul>
 		</div>
-		<div class="content">
-			<table>
-				<caption>Data from units:</caption>
-				<tr id="dataHead">
-					<th>Name</th>
-					<th>Einheit</th>
-					<th>Character</th>
-					<th>PhysID</th>
-				</tr>
-				<tr class="dataBody" id="0">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr class="dataBody" id="1">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-		</table>
+		<div>
+			<table id="content">
+				<caption class="dataHeader">Data from units:</caption>
+			</table>
+		</div>
+		<div class="optionsContainer">
+			<div>
+				<div>
+					<button>Add</button>
+				</div>
+				<div>
+					<button>Remove</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div>

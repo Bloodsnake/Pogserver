@@ -33,7 +33,7 @@ namespace Pogserver.GivePLZ.Payloads.Requests
             }
             catch
             {
-                Console.WriteLine("Could not parse: " + ctx.input);
+                Console.WriteLine("Could not handle: " + ctx.input);
             }
             return "";
         }

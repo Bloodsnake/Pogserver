@@ -9,29 +9,43 @@ namespace Pogserver.GivePLZ.Payloads.Requests
         public string TypeName { get; set; }
         public override string HandleRequest(APIManager.APIContext ctx)
         {
-            List<string> response = new List<string>();
-            
-            var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
-            var type = Type.GetType("Pogserver.Database+" + request.TypeName);
-
-            var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
-
-            while (reader.Read())
+            try
             {
-                var instance = Activator.CreateInstance(type);
-                for (int i = 0; i < reader.FieldCount; i++)
+                var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
+                var type = Type.GetType("Pogserver.Database+" + request.TypeName);
+                var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
+
+                List<object> response = new List<object>();
+
+                while (reader.Read())
                 {
-                    foreach (var prop in instance.GetType().GetProperties())
+                    var instance = Activator.CreateInstance(type);
+                    for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        if (prop.Name == reader.GetName(i))
+                        foreach (var prop in instance.GetType().GetProperties())
                         {
-                            instance.GetType().GetProperty(prop.Name).SetValue(instance, reader.GetValue(i));
+                            if (prop.Name == reader.GetName(i))
+                            {
+                                Console.WriteLine(prop.Name + ":" + reader.GetValue(i));
+                                instance.GetType().GetProperty(prop.Name).SetValue(instance, reader.GetValue(i).ToString());
+                            }
                         }
                     }
+                    foreach (var proper in instance.GetType().GetProperties())
+                    {
+                        Console.WriteLine(proper.Name + ":" + proper.GetValue(instance));
+                    }
+                    Console.WriteLine(JsonSerializer.Serialize(instance, type));
+                    response.Add(instance);
                 }
-                response.Add(JsonSerializer.Serialize(instance, type));
+                reader.Close();
+                return JsonSerializer.Serialize(response);
             }
-            return JsonSerializer.Serialize(response);
+            catch
+            {
+                Console.WriteLine("Could not handle: " + ctx.input);
+            }
+            return "";
         }
     }
 }

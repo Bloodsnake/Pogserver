@@ -88,7 +88,7 @@ namespace Pogserver
                 switch (request.Type)
                 {
                     case IRequest.RequestType.API:
-                        HandleApiRequest((APIRequest)request, req, resp);
+                        await HandleApiRequest((APIRequest)request, req, resp);
                         break;
 
                     case IRequest.RequestType.Content:
@@ -131,6 +131,8 @@ namespace Pogserver
 
             var APIresp = request.RequestObject.HandleRequest(context);
             var APIdata = Encoding.UTF8.GetBytes(APIresp);
+
+            Console.WriteLine(APIresp);
 
             response.ContentType = "text/json";
             response.ContentEncoding = Encoding.UTF8;

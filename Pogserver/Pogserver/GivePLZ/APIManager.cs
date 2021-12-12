@@ -13,6 +13,7 @@ namespace Pogserver.GivePLZ
             requests.Add(Path + "generateNewData", new APIRequest(new GenerateNewDataRequest()));
             requests.Add(Path + "sendnewdata", new APIRequest(new GenerateNewDataRequest()));
             requests.Add(Path + "getdata", new APIRequest(new SendDataRequest()));
+            requests.Add(Path + "removedata", new APIRequest(new RemoveDataRequest()));
             return requests;
         }
         public class APIContext

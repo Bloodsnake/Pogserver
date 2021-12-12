@@ -29,7 +29,7 @@ namespace Pogserver
             }
             Console.WriteLine("Configuring Database...");
             Database.Configure();
-            Console.WriteLine("Database configured");
+            if (Database.IsConfigured) Console.WriteLine("Database configured");
 
             server.Run().GetAwaiter().GetResult();
         }
