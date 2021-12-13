@@ -1,5 +1,4 @@
 ﻿using Pogserver.GivePLZ.Payloads;
-using System;
 
 namespace Pogserver.GivePLZ
 {

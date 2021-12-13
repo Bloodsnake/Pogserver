@@ -26,7 +26,6 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                         {
                             if (prop.Name == reader.GetName(i))
                             {
-                                Console.WriteLine(prop.Name + ":" + reader.GetValue(i));
                                 instance.GetType().GetProperty(prop.Name).SetValue(instance, reader.GetValue(i).ToString());
                             }
                         }

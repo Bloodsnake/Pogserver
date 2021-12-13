@@ -70,13 +70,12 @@ namespace Pogserver
                 var req = ctx.Request;
                 var resp = ctx.Response;
 
-                Console.WriteLine("Requesting:" + req.Url.AbsoluteUri);
-
                 //Check Method
                 if (!this.RequestLibrary.ContainsKey(req.HttpMethod)) continue;
                 var typeLibrary = this.RequestLibrary[req.HttpMethod];
 
                 //Check Path
+                Console.WriteLine(req.Url.AbsolutePath);
                 if (!typeLibrary.ContainsKey(req.Url.AbsolutePath))
                 {
                     HandleContentRequest(new ContentRequest("404.html"), resp);
@@ -88,7 +87,7 @@ namespace Pogserver
                 switch (request.Type)
                 {
                     case IRequest.RequestType.API:
-                        await HandleApiRequest((APIRequest)request, req, resp);
+                        HandleApiRequest((APIRequest)request, req, resp);
                         break;
 
                     case IRequest.RequestType.Content:

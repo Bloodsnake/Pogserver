@@ -65,10 +65,11 @@ namespace Pogserver
             public string Name { get; set; }
             public string PhysID { get; set; }
         }
-        public class Location
+        public class Locations
         {
             public string Bezeichnung { get; set; }
-            public string Standort { get; set; }
+            public string KoordinateX { get; set; }
+            public string KoordinateY { get; set; }
             public string StandortID { get; set; }
         }
     }

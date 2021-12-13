@@ -18,7 +18,6 @@
 	font-size: 40px;
 }
 .navigation {
-	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
@@ -26,8 +25,9 @@
 	padding: 2vh;
 	font-weight: bold;
 	font: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
-	border: 1px solid #52E4C7;
+	border-bottom: 1px solid #52E4C7;
 	cursor: pointer;
+	list-style-type: none;
 }
 .navigationEntry:hover {
 	background: #126e5c;

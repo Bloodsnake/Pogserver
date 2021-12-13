@@ -3,10 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>Units</title>
+	<link rel="shortcut icon" type="image/png" href="/favicon.png">
 	<link rel="stylesheet" href="/Common/CommonStyles.css">
     <script type="text/javascript" src="/Common/CommonScript.js"></script>
 </head>
-<body onload="GetUnitData()">
+<body onload="GetData('Units')">
 	<div class="header flexbox">
 		<div>
 			<div>
@@ -20,30 +21,32 @@
 	<div class="flexbox">
 		<div class="navigationContainer">
 			<ul class="navigation">
-				<li class="navigationEntry" onClick="NavigateTo('/')"> Go To Main Page</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/sensors')"> Go To Sensors</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/measurements')"> Go To Measurements</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/locations')"> Go To Locations</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/units')"> Go To Units</li>
+				<li class="navigationEntry" onClick="NavigateTo('/')"> Main Page</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/sensors')">Sensors</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/measurements')">Measurements</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/locations')">Locations</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/units')">Units</li>
 			</ul>
 		</div>
 		<div>
-			<table id="content">
-				<caption class="dataHeader">Data from units:</caption>
+			<div id="loadgifcontainer">
+				<img id="loadgif" src="/guraload.gif" alt="loadgif"></img>
+			</div>
+			<table hidden id="content">
+				<caption class="dataHeader">Data from 'Units':</caption>
+				<tr id="dataHead">
+					<th>Name</th>
+					<th>Einheit</th>
+					<th>Character</th>
+					<th>PhysID</th>
+				</tr>
 			</table>
 		</div>
 		<div class="optionsContainer">
 			<div>
-				<div>
-					<button>Add</button>
-				</div>
-				<div>
-					<button>Remove</button>
-				</div>
+				<button>Remove</button>
 			</div>
 		</div>
-	</div>
-	<div>
 	</div>
 </body>
 </html>

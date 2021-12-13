@@ -3,30 +3,44 @@
 <head>
 	<meta charset="utf-8">
 	<title>Locations</title>
+	<link rel="shortcut icon" type="image/png" href="/favicon.png">
 	<link rel="stylesheet" href="/Common/CommonStyles.css">
     <script type="text/javascript" src="/Common/CommonScript.js"></script>
 </head>
-<body>
-	<body>
-		<div class="header">
+<body onload="GetData('Locations')">
+	<div class="header flexbox">
+		<div>
 			<div>
 				Measurement Alteration Tool
 			</div>
-			<div id="PoweredByInfo">
+			<div id="PoweredByInfo" onclick="NavigateToExtern('github.com/Bloodsnake/Pogserver')">
 				Powered by Pogserver
 			</div>
 		</div>
+	</div>
+	<div class="flexbox">
 		<div class="navigationContainer">
 			<ul class="navigation">
-				<li class="navigationEntry" onClick="NavigateTo('/')"> Go To Main Page</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/sensors')"> Go To Sensors</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/measurements')"> Go To Measurements</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/locations')"> Go To Locations</li>
-				<li class="navigationEntry" onClick="NavigateTo('/DB/units')"> Go To Units</li>
+				<li class="navigationEntry" onClick="NavigateTo('/')"> Main Page</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/sensors')">Sensors</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/measurements')">Measurements</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/locations')">Locations</li>
+				<li class="navigationEntry" onClick="NavigateTo('/DB/units')">Units</li>
 			</ul>
 		</div>
 		<div>
+			<div id="loadgifcontainer">
+				<img id="loadgif" src="/guraload.gif" alt="loadgif"></img>
+			</div>
+			<table hidden id="content">
+				<caption class="dataHeader">Data from 'Locations':</caption>
+				<tr id="dataHead">
+					<th>Bezeichnung</th>
+					<th>KoordinateX</th>
+					<th>KoordinateY</th>
+					<th>StandortID</th>
+				</tr>
+			</table>
 		</div>
-    </body>
-</body>
+	</div>
 </html>

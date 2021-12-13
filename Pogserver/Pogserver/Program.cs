@@ -9,6 +9,7 @@ namespace Pogserver
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             var requests = new Dictionary<string, Dictionary<string, IRequest>>();
 
             requests.Add("GET", ContentManager.Verify(ContentManager.GetAllContentRequests(), "Content/"));
