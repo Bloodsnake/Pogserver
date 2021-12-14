@@ -42,7 +42,7 @@ function RemoveData(tableName, id, varName) {
         method: "POST",
         body: JSON.stringify(Remrequest),
     });
-    GetData('Location');
+    //GetData('Location');
 }
 
 function GetLocationData() {
@@ -78,7 +78,7 @@ function GetData(type) {
     });
 }
 function ParseLocationData(data) {
-    document.getElementById("loadgifcontainer").setAttribute("hidden", "true")
+    document.getElementById("loadgifcontainer").setAttribute("hidden", "true");
     for (var i = 0; i < data.length; i++) {
         var obj = data[i];
         var element = document.getElementById("content");
@@ -107,7 +107,7 @@ function ParseUnitData(data) {
             inject += ("<td>" + obj.Einheit + "</td>\n");
             inject += ("<td>" + obj.Character + "</td>\n");
             inject += ("<td>" + obj.PhysID + "</td>\n");
-            inject += "<td><button onClick=" + "NavigateTo('')" + ">Remove</button></td>";
+            inject += `<td><button onclick="RemoveData('location', '${obj.PhysID}', 'StandortID')">Remove</button></td>`;
             inject += "</tr>";
             element.innerHTML += inject;
         }

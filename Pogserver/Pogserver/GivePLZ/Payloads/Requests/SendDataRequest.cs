@@ -40,9 +40,10 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 reader.Close();
                 return JsonSerializer.Serialize(response);
             }
-            catch
+            catch (Exception e)
             {
                 Console.WriteLine("Could not handle: " + ctx.input);
+                Console.WriteLine(e.Message);
             }
             return "";
         }
