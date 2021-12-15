@@ -40,15 +40,15 @@ namespace Pogserver
             cmd.CommandText = command;
             cmd.ExecuteNonQuery();
         }
-        public class Measurement
+        public class Measurements
         {
             public string MessungsID { get; set; }
             public string PhysID { get; set; }
             public string SensorID { get; set; }
-            public string Value { get; set; }
-            public string Time { get; set; }
+            public string Wert { get; set; }
+            public string Zeitpunkt { get; set; }
         }
-        public class Sensor
+        public class Sensors
         {
             public string Bezeichnung { get; set; }
             public string Hersteller { get; set; }

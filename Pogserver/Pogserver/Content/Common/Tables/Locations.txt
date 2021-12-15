@@ -1,0 +1,14 @@
+<caption class="dataHeader">Data from 'Locations':</caption>
+<tr id="dataHead">
+    <th>Bezeichnung</th>
+    <th>KoordinateX</th>
+    <th>KoordinateY</th>
+    <th>StandortID</th>
+</tr>
+<tr id="addRow">
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><button>Submit</></th>
+</tr>

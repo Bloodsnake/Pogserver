@@ -1,0 +1,14 @@
+<caption class="dataHeader">Data from 'Units':</caption>
+<tr id="dataHead">
+	<th>Name</th>
+	<th>Einheit</th>
+	<th>Character</th>
+	<th>PhysID</th>
+</tr>
+<tr id="addRow">
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><button>Submit</></th>
+</tr>

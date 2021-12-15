@@ -53,6 +53,12 @@ namespace Pogserver.Content
                 var path = file.Replace(Environment.CurrentDirectory + Path, "").Replace(c, '/');
                 requests.Add(path, new ContentRequest(path));
             }
+            foreach (var file in Directory.GetFiles(Environment.CurrentDirectory + Path + "/Common/Tables"))
+            {
+                var c = @"\".ToCharArray()[0];
+                var path = file.Replace(Environment.CurrentDirectory + Path, "").Replace(c, '/');
+                requests.Add(path, new ContentRequest(path));
+            }
 
             return requests;
         }

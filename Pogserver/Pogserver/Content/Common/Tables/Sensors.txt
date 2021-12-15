@@ -1,0 +1,18 @@
+<caption class="dataHeader">Data from 'Sensors':</caption>
+<tr id="dataHead">
+    <th>Bezeichnung</th>
+    <th>Hersteller</th>
+    <th>Herstellernummer</th>
+    <th>SensorID</th>
+    <th>Seriennummer</th>
+    <th>StandortID</th>
+</tr>
+<tr id="addRow">
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><input type="text"></th>
+    <th><button>Submit</></th>
+</tr>

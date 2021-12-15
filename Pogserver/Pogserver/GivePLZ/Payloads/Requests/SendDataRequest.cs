@@ -13,6 +13,7 @@ namespace Pogserver.GivePLZ.Payloads.Requests
             {
                 var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
                 var type = Type.GetType("Pogserver.Database+" + request.TypeName);
+                Console.WriteLine("SELECT * FROM `" + request.TypeName + "`;");
                 var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
 
                 List<object> response = new List<object>();
