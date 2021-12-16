@@ -10,8 +10,7 @@ namespace Pogserver.GivePLZ
         {
             var requests = new Dictionary<string, IRequest>();
             requests.Add(Path + "shutdown", new APIRequest(new ShutDownRequest()));
-            requests.Add(Path + "generateNewData", new APIRequest(new GenerateNewDataRequest()));
-            requests.Add(Path + "sendnewdata", new APIRequest(new GenerateNewDataRequest()));
+            requests.Add(Path + "newData", new APIRequest(new ReceiveNewDataRequest()));
             requests.Add(Path + "getdata", new APIRequest(new SendDataRequest()));
             requests.Add(Path + "removedata", new APIRequest(new RemoveDataRequest()));
             return requests;

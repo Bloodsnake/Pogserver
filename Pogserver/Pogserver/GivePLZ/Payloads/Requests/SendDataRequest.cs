@@ -11,6 +11,7 @@ namespace Pogserver.GivePLZ.Payloads.Requests
         {
             try
             {
+                Console.WriteLine(ctx.input);
                 var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
                 var type = Type.GetType("Pogserver.Database+" + request.TypeName);
                 Console.WriteLine("SELECT * FROM `" + request.TypeName + "`;");

@@ -1,7 +1,34 @@
 ﻿let DataRequest = {
     TypeName: "",
 }
-let UnitDataResponse = {
+//Ich geb auf mit Namensgebung
+let NewDataRequest = {
+    TypeName: "",
+    Data: ""
+}
+let SensorData = {
+    Bezeichnung: "",
+    Hersteller: "",
+    Herstellernummer: "",
+    SensorID: "",
+    PhysID: "",
+    Seriennummer: "",
+    StandortID: ""
+}
+let Measurements = {
+    MessungsID: "",
+    PhysID: "",
+    SensorID: "",
+    Wert: "",
+    Zeitpunkt: ""
+}
+let LocationData = {
+    Bezeichnung: "",
+    KoordinateX: "",
+    KoordinateY: "",
+    StandortID: ""
+}
+let UnitData = {
     Einheit: "",
     Character: "",
     Name: "",
@@ -21,10 +48,6 @@ function NavigateToExtern(location) {
 	window.location.href = "https://" + location;
 }
 
-function AddNewUnitData() {
-
-}
-
 function RemoveData(tableName, id, varName) {
     var Remrequest = RemoveRequest;
     Remrequest.ID = id;
@@ -38,8 +61,38 @@ function RemoveData(tableName, id, varName) {
     window.location.reload();
 }
 
-function GetLocationData() {
-    var request = DataRequest;
+function SendData(type) {
+    var childs = document.getElementsByClassName("addInput");
+    switch (type) {
+        case "Units":
+            var obj = UnitData;
+            console.log(childs.length);
+            obj.Name = childs[0].value;
+            obj.Einheit = childs[1].value;
+            obj.Character = childs[2].value;
+            obj.PhysID = childs[3].value;
+            console.log(obj);
+            var req = NewDataRequest;
+            req.TypeName = type;
+            req.Data = JSON.stringify(obj);
+            fetch(window.location.origin + "/GivePLZ/V1/newData", {
+                method: "POST",
+                body: JSON.stringify(req),
+            })
+        break;
+        case "Locations":
+            ParseLocationData(data);
+        break;
+        case "Sensors":
+            ParseSensorData(data);
+        break;
+        case "Measurements":
+            ParseMeasurementData(data);
+        break;
+        default:
+            console.log("Can't request data");
+        break;
+    }
 }
 
 function GetData(type) {

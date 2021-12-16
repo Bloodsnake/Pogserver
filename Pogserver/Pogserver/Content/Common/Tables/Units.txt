@@ -6,9 +6,9 @@
 	<th>PhysID</th>
 </tr>
 <tr id="addRow">
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><button>Submit</></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><button onclick="SendData('Units')">Submit</></th>
 </tr>
