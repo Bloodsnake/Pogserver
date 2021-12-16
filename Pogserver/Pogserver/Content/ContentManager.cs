@@ -21,7 +21,6 @@ namespace Pogserver.Content
             requests.Add("/pepohappy.png", new ContentRequest("pepohappy.png"));
             requests.Add("/peposad.gif", new ContentRequest("peposad.gif"));
             requests.Add("/guraload.gif", new ContentRequest("guraload.gif"));
-            requests.Add("/test", new ContentRequest("test.html"));
 
             var common = GetAllCommonFiles();
             common.ToList().ForEach(x => requests.Add(x.Key, x.Value));

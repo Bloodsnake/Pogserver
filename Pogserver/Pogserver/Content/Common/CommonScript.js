@@ -35,7 +35,7 @@ function RemoveData(tableName, id, varName) {
         method: "POST",
         body: JSON.stringify(Remrequest),
     });
-    GetData(tableName.toUpperCase());
+    window.location.reload();
 }
 
 function GetLocationData() {
