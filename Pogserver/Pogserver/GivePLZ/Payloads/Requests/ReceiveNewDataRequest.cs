@@ -26,13 +26,19 @@ namespace Pogserver.GivePLZ.Payloads.Requests
             Console.WriteLine(request.Data);
             Console.WriteLine(type.Name);
             var data = JsonSerializer.Deserialize(request.Data, type);
+            int i = 1;
             foreach (var prop in type.GetProperties()) {
-                vars += (prop.Name + ", ");
-                Console.WriteLine(prop.Name);
-                vals += ("'" + prop.GetValue(data)+ "', ");
+                if (i == type.GetProperties().Length) vars += prop.Name;
+                else vars += (prop.Name + ", ");
+                Console.WriteLine(i);
+                Console.WriteLine(type.GetProperties().Length);
+                if (prop.Name.Contains("ID")) vals += prop.GetValue(data);
+                else vals += ("'" + prop.GetValue(data)+ "', ");
+                i++;
             }
-            Console.WriteLine("INSERT INTO '" + request.TypeName + "' (" + vars + ") VAUES (" + vals + ");");
-            Database.ExecuteCommand("INSERT INTO '" + request.TypeName + "' (" + vars + ") VAUES (" + vals + ");");
+            
+            Console.WriteLine($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
+            Database.ExecuteCommand($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
             return "";
         }
     }

@@ -30,7 +30,7 @@ let LocationData = {
 }
 let UnitData = {
     Einheit: "",
-    Character: "",
+    Zeichen: "",
     Name: "",
     PhysID: "",
 }
@@ -49,16 +49,16 @@ function NavigateToExtern(location) {
 }
 
 function RemoveData(tableName, id, varName) {
+    console.log("asdf");
     var Remrequest = RemoveRequest;
+    Remrequest.Table = tableName;
     Remrequest.ID = id;
     Remrequest.VariableName = varName;
-    Remrequest.Table = tableName;
     console.log(JSON.stringify(Remrequest));
     fetch(window.location.origin + '/GivePLZ/V1/removedata', {
         method: "POST",
         body: JSON.stringify(Remrequest),
-    });
-    window.location.reload();
+    })  ;
 }
 
 function SendData(type) {
@@ -66,19 +66,17 @@ function SendData(type) {
     switch (type) {
         case "Units":
             var obj = UnitData;
-            console.log(childs.length);
             obj.Name = childs[0].value;
             obj.Einheit = childs[1].value;
-            obj.Character = childs[2].value;
+            obj.Zeichen = childs[2].value;
             obj.PhysID = childs[3].value;
-            console.log(obj);
             var req = NewDataRequest;
             req.TypeName = type;
             req.Data = JSON.stringify(obj);
             fetch(window.location.origin + "/GivePLZ/V1/newData", {
                 method: "POST",
                 body: JSON.stringify(req),
-            })
+            }).then( () => { window.location.reload(); });
         break;
         case "Locations":
             ParseLocationData(data);
@@ -127,7 +125,6 @@ function ParseMeasurementData(data) {
     fetch("/Common/Tables/Measurements.txt").then( table => table.text() )
     .then( table => {
         var inject = table;
-        console.log(inject);
         for (var i = 0; i < data.length; i++) {
             var obj = data[i];
             var element = document.getElementById("content");
@@ -137,7 +134,7 @@ function ParseMeasurementData(data) {
             inject += `<td> ${obj.SensorID}</td>\n`;
             inject += `<td> ${obj.Wert}</td>\n`;
             inject += `<td>${obj.Zeitpunkt}</td>\n`;
-            inject += `<td><button onclick="RemoveData('locations', '${obj.MessungsID}', 'StandortID')">Remove</button></td>`;
+            inject += `<td><button onclick="RemoveData('locations', '${obj.MessungsID}', 'MessungsID')">Remove</button></td>`;
             inject += "</tr>";
         }
         element.innerHTML = inject;
@@ -150,7 +147,6 @@ function ParseSensorData(data) {
     fetch("/Common/Tables/Sensors.txt").then( table => table.text() )
     .then( table => {
         var inject = table;
-        console.log(inject);
         for (var i = 0; i < data.length; i++) {
             var obj = data[i];
             var element = document.getElementById("content");
@@ -161,7 +157,7 @@ function ParseSensorData(data) {
             inject += `<td> ${obj.SensorID}</td>\n`;
             inject += `<td>${obj.Seriennummer}</td>\n`;
             inject += `<td> ${obj.StandortID}</td>\n`;
-            inject += `<td><button onclick="RemoveData('locations', '${obj.SensorID}', 'StandortID')">Remove</button></td>`;
+            inject += `<td><button onclick="RemoveData('locations', '${obj.SensorID}', 'SensorID')">Remove</button></td>`;
             inject += "</tr>";
         }
         element.innerHTML = inject;
@@ -174,7 +170,6 @@ function ParseLocationData(data) {
     fetch("/Common/Tables/Locations.txt").then( table => table.text() )
     .then( table => {
         var inject = table;
-        console.log(inject);
         for (var i = 0; i < data.length; i++) {
             var obj = data[i];
             var element = document.getElementById("content");
@@ -196,16 +191,15 @@ function ParseUnitData(data) {
     fetch("/Common/Tables/Units.txt").then( table => table.text() )
     .then( table => {
         var inject = table;
-        console.log(inject);
         for (var i = 0; i < data.length; i++) {
             var obj = data[i];
             var element = document.getElementById("content");
             inject += "<tr class='dataBody'>";
             inject += `<td>${obj.Name}</td>\n`;
             inject += `<td> ${obj.Einheit}</td>\n`;
-            inject += `<td>${obj.Character}</td>\n`;
+            inject += `<td>${obj.Zeichen}</td>\n`;
             inject += `<td> ${obj.PhysID}</td>\n`;
-            inject += `<td><button onclick="RemoveData('units', '${obj.PhysID}', 'StandortID')">Remove</button></td>`;
+            inject += `<td><button onclick="RemoveData('units', '${obj.PhysID}', 'PhysID')">Remove</button></td>`;
             inject += "</tr>";
         }
         element.innerHTML = inject;

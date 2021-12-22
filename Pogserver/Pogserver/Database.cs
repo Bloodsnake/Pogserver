@@ -61,7 +61,7 @@ namespace Pogserver
         public class Units
         {
             public string Einheit { get; set; }
-            public string Character { get; set; }
+            public string Zeichen { get; set; }
             public string Name { get; set; }
             public string PhysID { get; set; }
         }

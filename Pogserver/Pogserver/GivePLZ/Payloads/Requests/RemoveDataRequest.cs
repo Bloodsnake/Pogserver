@@ -18,11 +18,8 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 return "";
             }
             var request = JsonSerializer.Deserialize<RemoveDataRequest>(ctx.input);
-            Console.WriteLine(request.ID);
-            Console.WriteLine(request.Table);
-            Console.WriteLine(request.VariableName);
-            Console.WriteLine("DELETE FROM " + request.Table + " WHERE " + request.VariableName + " = " + request.ID);
-            Database.ExecuteCommand("DELETE FROM " + request.Table + " WHERE " + request.VariableName + " = " + request.ID);
+            Console.WriteLine($"DELETE FROM {request.Table} WHERE {request.VariableName} = {request.ID}");
+            Database.ExecuteCommand($"DELETE FROM {request.Table} WHERE {request.VariableName} = {request.ID}");
             return "";
         }
     }

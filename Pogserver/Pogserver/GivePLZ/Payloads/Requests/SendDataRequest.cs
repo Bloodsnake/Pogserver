@@ -14,7 +14,6 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 Console.WriteLine(ctx.input);
                 var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
                 var type = Type.GetType("Pogserver.Database+" + request.TypeName);
-                Console.WriteLine("SELECT * FROM `" + request.TypeName + "`;");
                 var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
 
                 List<object> response = new List<object>();
@@ -32,11 +31,6 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                             }
                         }
                     }
-                    foreach (var proper in instance.GetType().GetProperties())
-                    {
-                        Console.WriteLine(proper.Name + ":" + proper.GetValue(instance));
-                    }
-                    Console.WriteLine(JsonSerializer.Serialize(instance, type));
                     response.Add(instance);
                 }
                 reader.Close();
