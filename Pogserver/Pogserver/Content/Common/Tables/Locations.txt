@@ -10,5 +10,5 @@
     <th><input type="text"></th>
     <th><input type="text"></th>
     <th><input type="text"></th>
-    <th><button onclick="SendData()">Submit</></th>
+    <th><button onclick="SendData('Locations')">Submit</></th>
 </tr>

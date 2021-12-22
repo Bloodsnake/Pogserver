@@ -16,15 +16,13 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 Console.ForegroundColor = ConsoleColor.White;
                 return "";
             }
-            Console.WriteLine(ctx.input);
+
             var request = JsonSerializer.Deserialize<ReceiveNewDataRequest>(ctx.input);
-            Console.WriteLine(request.TypeName);
-            Console.WriteLine(request.Data);
+
             var type = Type.GetType("Pogserver.Database+" + request.TypeName);
             string vars = "";
             string vals = "";
-            Console.WriteLine(request.Data);
-            Console.WriteLine(type.Name);
+
             var data = JsonSerializer.Deserialize(request.Data, type);
             int i = 1;
             foreach (var prop in type.GetProperties()) {
@@ -37,8 +35,8 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 i++;
             }
             
-            Console.WriteLine($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
             Database.ExecuteCommand($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
+
             return "";
         }
     }

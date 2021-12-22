@@ -14,5 +14,5 @@
     <th><input type="text"></th>
     <th><input type="text"></th>
     <th><input type="text"></th>
-    <th><button>Submit</></th>
+    <th><button onclick="SendData('Sensors')">Submit</></th>
 </tr>

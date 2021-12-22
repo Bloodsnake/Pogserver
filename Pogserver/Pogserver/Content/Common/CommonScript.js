@@ -1,4 +1,13 @@
-﻿let DataRequest = {
+﻿//Helper functions for navigation
+function NavigateTo(location) {
+	window.location.href = (window.location.origin + location);
+}
+
+function NavigateToExtern(location) {
+	window.location.href = "https://" + location;
+}
+//Datatypes for transmissions
+let DataRequest = {
     TypeName: "",
 }
 //Ich geb auf mit Namensgebung
@@ -39,17 +48,13 @@ let RemoveRequest = {
     Table: "",
     VariableName: "",
 }
-//Functions
-function NavigateTo(location) {
-	window.location.href = (window.location.origin + location);
+let StandartResponse = {
+    Status: "",
+    Message: ""
 }
 
-function NavigateToExtern(location) {
-	window.location.href = "https://" + location;
-}
-
+//Send a request to the server to remove the specified datapoint
 function RemoveData(tableName, id, varName) {
-    console.log("asdf");
     var Remrequest = RemoveRequest;
     Remrequest.Table = tableName;
     Remrequest.ID = id;
@@ -58,9 +63,10 @@ function RemoveData(tableName, id, varName) {
     fetch(window.location.origin + '/GivePLZ/V1/removedata', {
         method: "POST",
         body: JSON.stringify(Remrequest),
-    })  ;
+    }).then( () => { window.location.reload(); });
 }
 
+// Send new datapoints to the server
 function SendData(type) {
     var childs = document.getElementsByClassName("addInput");
     switch (type) {
@@ -70,6 +76,7 @@ function SendData(type) {
             obj.Einheit = childs[1].value;
             obj.Zeichen = childs[2].value;
             obj.PhysID = childs[3].value;
+
             var req = NewDataRequest;
             req.TypeName = type;
             req.Data = JSON.stringify(obj);
@@ -79,13 +86,52 @@ function SendData(type) {
             }).then( () => { window.location.reload(); });
         break;
         case "Locations":
-            ParseLocationData(data);
+            var obj = LocationData;
+            obj.Bezeichnung = childs[0].value;
+            obj.KoordinateX = childs[1].value;
+            obj.KoordinateY = childs[2].value;
+            obj.StandortID = childs[3].value;
+
+            var req = NewDataRequest;
+            req.TypeName = type;
+            req.Data = JSON.stringify(obj);
+            fetch(window.location.origin + "/GivePLZ/V1/newData", {
+                method: "POST",
+                body: JSON.stringify(req),
+            }).then( () => { window.location.reload(); });
         break;
         case "Sensors":
-            ParseSensorData(data);
+            var obj = LocationData;
+            obj.Bezeichnung = childs[0].value;
+            obj.Hersteller = childs[1].value;
+            obj.Herstellernummer = childs[2].value;
+            obj.SensorID = childs[3].value;
+            obj.Seriennummer = childs[4].value;
+            obj.StandortID = childs[5].value;
+
+            var req = NewDataRequest;
+            req.TypeName = type;
+            req.Data = JSON.stringify(obj);
+            fetch(window.location.origin + "/GivePLZ/V1/newData", {
+                method: "POST",
+                body: JSON.stringify(req),
+            }).then( () => { window.location.reload(); });
         break;
         case "Measurements":
-            ParseMeasurementData(data);
+            var obj = LocationData;
+            obj.MessungsID = childs[0].value;
+            obj.PhysID = childs[1].value;
+            obj.SensorID = childs[2].value;
+            obj.Wert = childs[3].value;
+            obj.Zeitpunkt = childs[4].value;
+
+            var req = NewDataRequest;
+            req.TypeName = type;
+            req.Data = JSON.stringify(obj);
+            fetch(window.location.origin + "/GivePLZ/V1/newData", {
+                method: "POST",
+                body: JSON.stringify(req),
+            }).then( () => { window.location.reload(); });
         break;
         default:
             console.log("Can't request data");
@@ -93,6 +139,7 @@ function SendData(type) {
     }
 }
 
+//Get Data from server
 function GetData(type) {
     var request = DataRequest;
     request.TypeName = type;
@@ -121,6 +168,8 @@ function GetData(type) {
     });
 }
 
+//Parse incoming data to a HTML Table
+//All functions are basically the same
 function ParseMeasurementData(data) {
     fetch("/Common/Tables/Measurements.txt").then( table => table.text() )
     .then( table => {

@@ -9,9 +9,15 @@ namespace Pogserver.GivePLZ.Payloads.Requests
         public string TypeName { get; set; }
         public override string HandleRequest(APIManager.APIContext ctx)
         {
+            if (!Database.IsConfigured)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Cannot access Database");
+                Console.ForegroundColor = ConsoleColor.White;
+                return "";
+            }
             try
             {
-                Console.WriteLine(ctx.input);
                 var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
                 var type = Type.GetType("Pogserver.Database+" + request.TypeName);
                 var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
