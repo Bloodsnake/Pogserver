@@ -16,12 +16,12 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 Console.ForegroundColor = ConsoleColor.White;
                 return "";
             }
+            var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
+            var type = Type.GetType("Pogserver.Database+" + request.TypeName);
+            var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
+
             try
             {
-                var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
-                var type = Type.GetType("Pogserver.Database+" + request.TypeName);
-                var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
-
                 List<object> response = new List<object>();
 
                 while (reader.Read())
@@ -46,6 +46,7 @@ namespace Pogserver.GivePLZ.Payloads.Requests
             {
                 Console.WriteLine("Could not handle: " + ctx.input);
                 Console.WriteLine(e.Message);
+                reader.Close();
             }
             return "";
         }

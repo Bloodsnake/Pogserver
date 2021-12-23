@@ -7,7 +7,7 @@ namespace Pogserver
     {
         private static MySqlConnection Connection { get; set; }
         public static bool IsConfigured { get; set; }
-        public static void Configure(string parameters = "host=localhost;user=root;password='';database=messwerte;")
+        public static void Configure(string parameters = "host=localhost;user=root;password='';database=messwerte; convert zero datetime=True")
         {
             if (IsConfigured) return;
 
