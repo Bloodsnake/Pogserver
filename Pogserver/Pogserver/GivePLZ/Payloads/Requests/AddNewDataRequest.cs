@@ -36,6 +36,7 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 if (i != type.GetProperties().Length) vals += ",";
                 i++;
             }
+            Console.WriteLine($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
             Database.ExecuteCommand($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
 
             return "";
