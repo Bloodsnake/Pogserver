@@ -1,0 +1,16 @@
+<caption class="dataHeader">Data from 'Measurements':</caption>
+<tr id="dataHead">
+    <th>MessungsID</th>
+    <th>PhysID</th>
+    <th>SensorID</th>
+    <th>Wert</th>
+    <th>Zeitpunkt</th>
+</tr>
+<tr id="addRow">
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><button onclick="SendData('Measurements')">Submit</></th>
+</tr>
