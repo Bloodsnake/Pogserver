@@ -1,0 +1,63 @@
+﻿html, body {
+	height: 100%;
+	
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+  }
+.header {
+	padding: 10px;
+  	background: #1abc9c;
+	color: wheat;
+  	font-size: 30px;
+}
+.flexbox {
+	display: flex;
+}
+#PoweredByInfo {
+	font-size: 19px;
+	font-family: "Brush Script MT";
+}
+#name {
+	font-size: 40px;
+}
+.navigation {
+	margin: 0;
+	padding: 0;
+}
+.navigationEntry {
+	padding: 2vh;
+	font-weight: bold;
+	font: Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+	border-bottom: 1px solid #52E4C7;
+	cursor: pointer;
+	list-style-type: none;
+}
+.navigationEntry:hover {
+	background: #126e5c;
+}
+.navigationContainer {
+	background: content-box;
+	background: #178a73;
+	width: 10vw;
+	overflow: hidden;
+	height: 100%;
+}
+.bodyBox {
+	height: 100%;
+}
+.dataBody {
+	text-align: center;
+}
+.dataHeader {
+	font-size: 30px;
+}
+.darkToggle {
+	text-align: center;
+}
+th {
+	width: 10vw;
+}
+td {
+	width: 10vw;
+}
