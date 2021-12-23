@@ -6,9 +6,9 @@
     <th>StandortID</th>
 </tr>
 <tr id="addRow">
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><input type="text"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
     <th><button onclick="SendData('Locations')">Submit</></th>
 </tr>

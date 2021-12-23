@@ -7,10 +7,10 @@
     <th>Zeitpunkt</th>
 </tr>
 <tr id="addRow">
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><input type="text"></th>
-    <th><input type="text"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
+    <th><input type="text" class="addInput"></th>
     <th><button onclick="SendData('Measurements')">Submit</></th>
 </tr>
