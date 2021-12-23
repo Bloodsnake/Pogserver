@@ -9,7 +9,7 @@ namespace Pogserver.GivePLZ
         public static Dictionary<string, IRequest> GetAllAPIRequests()
         {
             var requests = new Dictionary<string, IRequest>();
-            requests.Add(Path + "newData", new APIRequest(new ReceiveNewDataRequest()));
+            requests.Add(Path + "newData", new APIRequest(new AddNewDataRequest()));
             requests.Add(Path + "getdata", new APIRequest(new SendDataRequest()));
             requests.Add(Path + "removedata", new APIRequest(new RemoveDataRequest()));
             return requests;

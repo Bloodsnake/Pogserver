@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Pogserver.GivePLZ.Payloads.Requests
 {
-    class ReceiveNewDataRequest : APIRequestPayloadBase
+    class AddNewDataRequest : APIRequestPayloadBase
     {
         public string TypeName { get; set; }
         public string Data { get; set; }
@@ -17,7 +17,9 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 return "";
             }
 
-            var request = JsonSerializer.Deserialize<ReceiveNewDataRequest>(ctx.input);
+            Console.WriteLine(ctx.input);
+
+            var request = JsonSerializer.Deserialize<AddNewDataRequest>(ctx.input);
 
             var type = Type.GetType("Pogserver.Database+" + request.TypeName);
             string vars = "";
@@ -25,16 +27,20 @@ namespace Pogserver.GivePLZ.Payloads.Requests
 
             var data = JsonSerializer.Deserialize(request.Data, type);
             int i = 1;
+            Console.WriteLine(type.GetProperties().Length);
             foreach (var prop in type.GetProperties()) {
                 if (i == type.GetProperties().Length) vars += prop.Name;
                 else vars += (prop.Name + ", ");
-                Console.WriteLine(i);
-                Console.WriteLine(type.GetProperties().Length);
-                if (prop.Name.Contains("ID")) vals += prop.GetValue(data);
-                else vals += ("'" + prop.GetValue(data)+ "', ");
+
+                Console.WriteLine(prop.GetValue(data));
+
+                if (prop.Name.Contains("ID") || prop.GetValue(data).ToString().Contains("TIME")) vals += prop.GetValue(data);
+                else vals += ("'" + prop.GetValue(data)+ "'");
+                if (i != type.GetProperties().Length) vals += ",";
                 i++;
             }
-            
+
+            Console.WriteLine($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
             Database.ExecuteCommand($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
 
             return "";

@@ -124,6 +124,8 @@ function SendData(type) {
             obj.PhysID = childs[1].value;
             obj.SensorID = childs[2].value;
             obj.Wert = childs[3].value;
+            if (childs[4].value == "") obj.Zeitpunkt = "CURRENT_TIMESTAMP()"
+            else obj.Zeitpunkt = `TIMESTAMPADD(${childs[4].value})`
 
             var req = NewDataRequest;
             req.TypeName = type;
