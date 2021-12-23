@@ -17,8 +17,6 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 return "";
             }
 
-            Console.WriteLine(ctx.input);
-
             var request = JsonSerializer.Deserialize<AddNewDataRequest>(ctx.input);
 
             var type = Type.GetType("Pogserver.Database+" + request.TypeName);
@@ -27,7 +25,6 @@ namespace Pogserver.GivePLZ.Payloads.Requests
 
             var data = JsonSerializer.Deserialize(request.Data, type);
             int i = 1;
-            Console.WriteLine(type.GetProperties().Length);
             foreach (var prop in type.GetProperties()) {
                 if (i == type.GetProperties().Length) vars += prop.Name;
                 else vars += (prop.Name + ", ");
@@ -39,8 +36,6 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                 if (i != type.GetProperties().Length) vals += ",";
                 i++;
             }
-
-            Console.WriteLine($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
             Database.ExecuteCommand($"INSERT INTO {request.TypeName} (" + vars + ") VALUES (" + vals + ");");
 
             return "";
