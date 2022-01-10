@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Pogserver.GivePLZ.Payloads.Requests
 {
+    [APIPayload("senddata", 1)]
     class SendDataRequest : APIRequestPayloadBase
     {
         public string TypeName { get; set; }
-        public override string HandleRequest(APIManager.APIContext ctx)
+        public override async Task<Response> HandleRequest(APIManager.APIContext ctx)
         {
             if (!Database.IsConfigured)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Cannot access Database");
                 Console.ForegroundColor = ConsoleColor.White;
-                return "";
+                return new Response(Response.ResponseStatus.Failed, "");
             }
-            var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.input);
+            var request = JsonSerializer.Deserialize<SendDataRequest>(ctx.Input);
             var type = Type.GetType("Pogserver.Database+" + request.TypeName);
             var reader = Database.Read("SELECT * FROM `" + request.TypeName + "`;");
 
@@ -40,15 +42,15 @@ namespace Pogserver.GivePLZ.Payloads.Requests
                     response.Add(instance);
                 }
                 reader.Close();
-                return JsonSerializer.Serialize(response);
+                return new Response(Response.ResponseStatus.Sucess, JsonSerializer.Serialize(response));
             }
             catch (Exception e)
             {
-                Console.WriteLine("Could not handle: " + ctx.input);
+                Console.WriteLine("Could not handle: " + ctx.Input);
                 Console.WriteLine(e.Message);
                 reader.Close();
             }
-            return "";
+            return new Response(Response.ResponseStatus.Failed, "");
         }
     }
 }

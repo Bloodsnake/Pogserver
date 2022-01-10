@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Pogserver.GivePLZ.Payloads
 {
     interface IAPIRequestPayload
     {
-        public string HandleRequest(APIManager.APIContext ctx);
+        public Task<Response> HandleRequest(APIManager.APIContext ctx);
     }
     class APIRequestPayloadBase : IAPIRequestPayload
     {
-        public virtual string HandleRequest(APIManager.APIContext ctx)
+        public virtual Task<Response> HandleRequest(APIManager.APIContext ctx)
         {
             throw new RequestHandlerNotImplementedException();
         }

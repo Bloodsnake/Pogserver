@@ -12,6 +12,12 @@ namespace Pogserver.Content
         {
             var requests = new Dictionary<string, IRequest>();
 
+            Console.WriteLine(Environment.CurrentDirectory + Path + "/");
+
+            var files = Directory.GetFiles(Environment.CurrentDirectory + Path, @"*.html *.png *.gif *.jpg", SearchOption.AllDirectories);
+
+            foreach (var file in files) Console.WriteLine(file);
+
             requests.Add("/", new ContentRequest("index.html"));
             requests.Add("/DB/units", new ContentRequest("DB/units.html"));
             requests.Add("/DB/locations", new ContentRequest("DB/locations.html"));

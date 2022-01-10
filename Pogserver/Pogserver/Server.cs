@@ -125,11 +125,11 @@ namespace Pogserver
             var reader = new StreamReader(stream).ReadToEnd();
 
             var context = new APIManager.APIContext();
-            context.input = reader;
-            context.sender = this;
+            context.Input = reader;
+            context.Sender = this;
 
-            var APIresp = request.RequestObject.HandleRequest(context);
-            var APIdata = Encoding.UTF8.GetBytes(APIresp);
+            var APIresp = await request.RequestObject.HandleRequest(context);
+            var APIdata = Encoding.UTF8.GetBytes(APIresp.Result);
 
             Console.WriteLine(APIresp);
 
